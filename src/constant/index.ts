@@ -1,0 +1,1 @@
+export const KEY_EXCHANGE = "24ba76bb7134430790fdec5a"
