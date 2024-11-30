@@ -1,45 +1,44 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useMemo, useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../../types/redux.type'
-import { Button, Gap } from '../../components'
-import { Dropdown } from 'react-native-element-dropdown'
-const {height} = Dimensions.get('window')
-import Antdesign from 'react-native-vector-icons/AntDesign'
-import DateTimePicker from 'react-native-ui-datepicker'
-import { RootStackParamList } from '../../types/route.type'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { toggleisFiltering } from '../../redux/reducer/global'
-import expenseDb from '../../db/expense'
-import { ExpenseType } from '../../types/global.type'
+/* eslint-disable react-hooks/exhaustive-deps */
+import {StyleSheet, Text, View } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../types/redux.type';
+import { Button, Gap } from '../../components';
+import { Dropdown } from 'react-native-element-dropdown';
+import Antdesign from 'react-native-vector-icons/AntDesign';
+import DateTimePicker from 'react-native-ui-datepicker';
+import { RootStackParamList } from '../../types/route.type';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { toggleisFiltering } from '../../redux/reducer/global';
+import expenseDb from '../../db/expense';
 
 const FilterExpenseScreen = ({navigation}: {navigation: NativeStackNavigationProp<RootStackParamList>}) => {
-    const dispatch = useAppDispatch()
-    const [loading, setLoading] = useState(false)
-    const {category, user, expense} = useAppSelector(state => state.global)
-    
+    const dispatch = useAppDispatch();
+    const [loading] = useState(false);
+    const {category, user} = useAppSelector(state => state.global);
+
     const categories = useMemo(() =>{
       return category.map((item)=>{
         return {
           label:item.category_name,
-          value:item.id
-        }
-      })
-    },[])
-    const [isFocus, setIsFocus] = useState(false)
-    const [value, setValue] = useState(0)
-    const [placeholderDropdown, setPlaceholderDropdown] = useState('')
+          value:item.id,
+        };
+      });
+    },[]);
+    const [isFocus, setIsFocus] = useState(false);
+    const [value, setValue] = useState(0);
+    const [placeholderDropdown, setPlaceholderDropdown] = useState('');
     const [date, setDate] = useState<{from:  string, to: string}>({
-        from: new Date(new Date().setDate(new Date().getDate() -1)).toISOString(),
-        to: new Date().toISOString()
-    })
+        from: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+        to: new Date().toISOString(),
+    });
     const handleBtn = () =>{
-      const {filterExpense} = expenseDb
+      const {filterExpense} = expenseDb;
       // console.log({value})
       // console.log(date)
-        dispatch(filterExpense(user.id_user, date.from, date.to, Number(value))) //
-        dispatch(toggleisFiltering(true))
-        navigation.goBack()
-      }
+        dispatch(filterExpense(user.id_user, date.from, date.to, Number(value))); //
+        dispatch(toggleisFiltering(true));
+        navigation.goBack();
+      };
     return (
     <View style={styles.screen}>
         <Gap height={16} />
@@ -52,9 +51,9 @@ const FilterExpenseScreen = ({navigation}: {navigation: NativeStackNavigationPro
             onChange={(params) => setDate((prev:any) => {
                 return{
                     ...prev,
-                    from:params.startDate || "",
-                    to: params.endDate || ""
-                }
+                    from:params.startDate || '',
+                    to: params.endDate || '',
+                };
             })}
             />
         <Text>Filter by Category</Text>
@@ -77,7 +76,7 @@ const FilterExpenseScreen = ({navigation}: {navigation: NativeStackNavigationPro
           onBlur={() => setIsFocus(false)}
           onChange={item => {
             setValue(item.value);
-            setPlaceholderDropdown(item.label)
+            setPlaceholderDropdown(item.label);
             setIsFocus(false);
           }}
           renderLeftIcon={() => (
@@ -90,16 +89,16 @@ const FilterExpenseScreen = ({navigation}: {navigation: NativeStackNavigationPro
           )}
         />
         <Gap height={16} />
-        <Button disable={loading} loading={loading} onPress={handleBtn} label='Save' />
+        <Button disable={loading} loading={loading} onPress={handleBtn} label="Save" />
     </View>
-  )
-}
+  );
+};
 
-export default FilterExpenseScreen
+export default FilterExpenseScreen;
 
 const styles = StyleSheet.create({
     screen:{
-        paddingHorizontal:16
+        paddingHorizontal:16,
     },
     container: {
         backgroundColor: 'white',
@@ -138,4 +137,4 @@ const styles = StyleSheet.create({
         height: 40,
         fontSize: 16,
       },
-})
+});

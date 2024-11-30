@@ -1,73 +1,75 @@
-import { SafeAreaView, StyleSheet, Text,ScrollView, ViewStyle, Dimensions} from 'react-native'
-import React, { LegacyRef, useEffect, useRef, useState } from 'react'
-import { Button, Gap, TextInput } from '../../components'
-import { SetExpenseType } from '../../types/global.type'
-import { useAppDispatch, useAppSelector } from '../../types/redux.type'
-import { createExpense } from '../../redux/action/expense'
-import { RootStackScreenProps } from '../../types/route.type'
-import DateTimePicker from 'react-native-ui-datepicker'
-import { Dropdown } from 'react-native-element-dropdown'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import expense from '../../db/expense'
-import db from '../../db/db'
+/* eslint-disable react-native/no-inline-styles */
+import { SafeAreaView, StyleSheet, Text,ScrollView, ViewStyle, Dimensions} from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Gap, TextInput } from '../../components';
+import { ExpenseType, SetExpenseType } from '../../types/global.type';
+import { useAppDispatch, useAppSelector } from '../../types/redux.type';
+import { RootStackScreenProps } from '../../types/route.type';
+import DateTimePicker from 'react-native-ui-datepicker';
+import { Dropdown } from 'react-native-element-dropdown';
+import expense from '../../db/expense';
+import db from '../../db/db';
 type Props = {
     navigation: RootStackScreenProps<'InputScreen'>
 }
+const WIDTHSCREEN = Dimensions.get('window').width;
 const InputScreen = (props : Props) => {
-    const {navigation} = props
-    const dispatch = useAppDispatch()
-    const scrollRef = useRef<ScrollView>(null)
+    const {navigation} = props;
+    const dispatch = useAppDispatch();
+    const scrollRef = useRef<ScrollView>(null);
     const {category, user} = useAppSelector(state => state.global);
-    const [isFocus, setIsFocus] = useState(false)
+    const [isFocus, setIsFocus] = useState(false);
     const [form,setForm] = useState<SetExpenseType>({
         day: new Date().toISOString(),
-        note:"",
-        expense:"",
-        category:""
-    })
-    const [loading, setLoading] = useState(false)
+        note:'',
+        expense:'',
+        category:'',
+    });
+    const [loading] = useState(false);
     const handleChange = (key: keyof SetExpenseType, value: string) =>{
         setForm(prev => {
             return{
                 ...prev,
-                [key]: value
-            }
-        })
-    }
+                [key]: value,
+            };
+        });
+    };
 
     const onFocusDropdown = () =>{
         if(scrollRef.current){
-            scrollRef.current.scrollToEnd({animated:true})
+            scrollRef.current.scrollToEnd({animated:true});
         }
-    }
+    };
     useEffect(() =>{
 
-    },[])
-    const disableBtn = form.note.trim() === "" || form.expense.trim() === "" || form.category.trim() === ""
-    const height = Dimensions.get("window").height
+    },[]);
+    const disableBtn = form.note.trim() === '' || form.expense.trim() === '' || form.category.trim() === '';
+    const height = Dimensions.get('window').height;
     const screenStyle : ViewStyle = {
         height: height * 2,
-        flex:1
-    }
+        flex:1,
+    };
     const handleSave = async() =>{
-        const database = await db.connectToDb() 
-        const exp = {
+        const database = await db.connectToDb();
+        const exp : ExpenseType = {
             amount: form.expense,
             expense: form.note,
-            category: "Barudakwell",
-            create_at: form.day
-        }
+            category: '',
+            create_at: form.day,
+            id: 0,
+            id_category: 0,
+        };
         dispatch(expense.createExpense(
             database,
             exp,
             user.id_user,
             Number(form.category)
-        ))
-        navigation.goBack()
-    }
+        ));
+        navigation.goBack();
+    };
   return (
     <SafeAreaView style={screenStyle}>
-        <ScrollView 
+        <ScrollView
         ref={scrollRef}
         showsVerticalScrollIndicator={false} style={{marginHorizontal:16}}>
             <Gap height={16} />
@@ -79,74 +81,68 @@ const InputScreen = (props : Props) => {
             onChange={(params) => setForm(prev => {
                 return{
                     ...prev,
-                    day: params?.date?.toString() || ""
-                }
+                    day: params?.date?.toString() || '',
+                };
             })}
             />
-            <TextInput 
-            onChangeText={(t)=> handleChange('note',t)}
-            styleContainer={styles.textInput}
-            label='Expense'
-            placeholder='Some Expense'
-            />
-            <TextInput 
-            onChangeText={(t)=> handleChange('expense',t)}
-            styleContainer={styles.textInput}
-            keyboardType='numeric'
-            label='Amount'
-            placeholder='Amount'
-            />
-            <Text style={{marginTop:12}}>Category</Text>
-            <Dropdown 
+            <Text>Category</Text>
+            <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
             iconStyle={styles.iconStyle}
             data={category.map(item => {
                 return{
                     label: item.category_name,
-                    value: item.id
-                }
+                    value: item.id,
+                };
             })}
-            search
+            containerStyle={styles.containerDropdownStyle}
             maxHeight={300}
             labelField="label"
             valueField="value"
-            placeholder={!isFocus ? 'Select item' : '...'}
+            // placeholder={!isFocus ? 'Select category' : '...'}
             searchPlaceholder="Search..."
             value={form.category}
             onFocus={() => {
-                onFocusDropdown()
-                setIsFocus(true)}}
+                onFocusDropdown();
+                setIsFocus(true);}}
             onBlur={() => setIsFocus(false)}
             onChange={item => {
-              handleChange('category', item.value.toString())
+              handleChange('category', item.value.toString());
               setIsFocus(false);
             }}
           />
-            {/* <TextInput 
-            onChangeText={(t)=> handleChange('category',t)}
+           <Gap height={16} />
+            <TextInput
+            onChangeText={(t)=> handleChange('note',t)}
             styleContainer={styles.textInput}
-            label='Category'
-            placeholder='Category'
-            /> */}
-            <Button 
+            label="Expense"
+            placeholder="Some Expense"
+            />
+            <TextInput
+            onChangeText={(t)=> handleChange('expense',t)}
+            styleContainer={styles.textInput}
+            keyboardType="numeric"
+            label="Amount"
+            placeholder="Amount"
+            />
+            <Button
             onPress={handleSave}
             disable={loading || disableBtn}
             loading={loading}
-            label='Save' style={{marginTop:16}} />
+            label="Save" style={{marginTop:16}} />
             <Gap height={16} />
         </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default InputScreen
+export default InputScreen;
 
 const styles = StyleSheet.create({
     textInput:{
-        marginTop:8
+        marginTop:8,
     },
     placeholderStyle: {
         fontSize: 16,
@@ -170,4 +166,8 @@ const styles = StyleSheet.create({
         borderRadius: 32,
         paddingHorizontal: 8,
       },
-})
+      containerDropdownStyle:{
+        maxHeight:100,
+        width: WIDTHSCREEN - 128,
+      },
+});

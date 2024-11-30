@@ -2,45 +2,45 @@ type IconProps = {
     label: string;
     focus: boolean;
   }
-  
-  import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-  import React from 'react'
-  import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
-  import Octicons from 'react-native-vector-icons/Octicons'
-  import AntDesign from 'react-native-vector-icons/AntDesign'
+
+  import { StyleSheet, View, TouchableOpacity } from 'react-native';
+  import React from 'react';
+  import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+  import Octicons from 'react-native-vector-icons/Octicons';
+  import AntDesign from 'react-native-vector-icons/AntDesign';
   const Icon = ({ label, focus }: IconProps) => {
     switch (label) {
-       case "Home":
+       case 'Home':
         return focus ? (
           <View style={{ alignItems: 'center' }}>
-            <AntDesign name='home' size={24} />
+            <AntDesign name="home" size={24} />
             {/* <Gap height={4} /> */}
           </View>
-        ) : <AntDesign name='home' size={24} />
-        case "Profile":
+        ) : <AntDesign name="home" size={24} />;
+        case 'Profile':
           return focus ? (
             <View style={{ alignItems: 'center' }}>
-              <Octicons name='pencil' size={24} />
+              <Octicons name="pencil" size={24} />
               {/* <Gap height={4} /> */}
             </View>
-          ) : <Octicons name='pencil' size={24} />
-      case "Edit":
+          ) : <Octicons name="pencil" size={24} />;
+      case 'Edit':
         return focus ? (
           <View style={{ alignItems: 'center' }}>
-            <AntDesign name='setting' size={24} />
+            <AntDesign name="setting" size={24} />
             {/* <Gap height={4} /> */}
           </View>
-        ) : <AntDesign name='setting' size={24} />
+        ) : <AntDesign name="setting" size={24} />;
       default:
         return focus ? (
           <View style={{ alignItems: 'center' }}>
-            <AntDesign name='home' size={24} />
+            <AntDesign name="home" size={24} />
             {/* <Gap height={4} /> */}
           </View>
-        ) : <AntDesign name='home' size={24} />
+        ) : <AntDesign name="home" size={24} />;
     }
-  }
-  
+  };
+
   const MyTabsBar = ({ state, navigation, descriptors }: BottomTabBarProps) => {
     //styles.container
     return (
@@ -53,9 +53,9 @@ type IconProps = {
               : options.title !== undefined
                 ? options.title
                 : route.name;
-  
+
           const isFocused = state.index === index;
-  
+
           const onPress = () => {
             const event = navigation.emit({
               type: 'tabPress',
@@ -66,14 +66,14 @@ type IconProps = {
               navigation.navigate(route.name);
             }
           };
-  
+
           const onLongPress = () => {
             navigation.emit({
               type: 'tabLongPress',
               target: route.key,
             });
           };
-  
+
           return (
             <TouchableOpacity
               key={index}
@@ -93,10 +93,10 @@ type IconProps = {
         })}
       </View>
     );
-  }
-  
-  export default MyTabsBar
-  
+  };
+
+  export default MyTabsBar;
+
   const styles = StyleSheet.create({
     container: {
       flexDirection: 'row',
@@ -113,7 +113,7 @@ type IconProps = {
       justifyContent: 'space-around',
       height: (80),
       overflow: 'hidden',
-      alignItems:"center"
+      alignItems:'center',
     },
     wpItem: {
       alignItems: 'center',
@@ -123,8 +123,8 @@ type IconProps = {
       paddingVertical: 5,
     },
     txtLabel:{
-      fontWeight:"medium",
+      fontWeight:'medium',
       fontSize:10,
-      color:"#000"
-    }
-  })
+      color:'#000',
+    },
+  });

@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Text, View } from 'react-native';
+import React from 'react';
 
 const DummyScreen = () => {
   return (
     <View>
       <Text>DummyScreen</Text>
     </View>
-  )
-}
+  );
+};
 
-export default DummyScreen
+export default DummyScreen;
 
-const styles = StyleSheet.create({})
+// const styles = StyleSheet.create({});

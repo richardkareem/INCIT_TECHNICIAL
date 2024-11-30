@@ -1,9 +1,9 @@
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, {} from 'react'
-import dayjs from 'dayjs'
-import Entypo from 'react-native-vector-icons/Entypo'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, {} from 'react';
+import dayjs from 'dayjs';
+import Entypo from 'react-native-vector-icons/Entypo';
 import { GestureHandlerRootView} from 'react-native-gesture-handler';
-import Reanimated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Reanimated, { SharedValue, useAnimatedStyle } from 'react-native-reanimated';
 import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 import {
   configureReanimatedLogger,
@@ -22,29 +22,29 @@ type Props = {
   amount: string,
   date: string,
   category: string,
-  type?: "admin" | 'users'
+  type?: 'admin' | 'users'
   onpress?: ()=> void
 }
-const {width} = Dimensions.get('window')
+const {width} = Dimensions.get('window');
 const HistoryExpenseCard = (props: Props) => {
-  const {amount,date,title, type = "users", onpress, category} = props
+  const {amount,date,title, type = 'users', onpress, category} = props;
   const RightAction = (prog :SharedValue<number>, drag: SharedValue<number>) => {
    const styleAnimation = useAnimatedStyle(() =>{
     return{
-      transform: [{translateX: drag.value + width}]
-    }
+      transform: [{translateX: drag.value + width}],
+    };
 
-   })
+   });
     return(
     <Reanimated.View style={[styleAnimation,styles.wpTrash]}>
       <TouchableOpacity onPress={onpress}>
-        <Entypo name='trash' size={24} />
+        <Entypo name="trash" size={24} />
       </TouchableOpacity>
     </Reanimated.View>
-    )
-  }
+    );
+  };
 
-  if(type === "users"){
+  if(type === 'users'){
     return (
       <View style={styles.ctUser}>
         <View>
@@ -57,12 +57,12 @@ const HistoryExpenseCard = (props: Props) => {
           <Text style={styles.textWhiteSemiBold12px}>{dayjs(date).format('dddd, DD MMMM YYYY')}</Text>
         </View>
       </View>
-    )
-  }  
-  if(type === "admin"){
+    );
+  }
+  if(type === 'admin'){
     return(
       <GestureHandlerRootView >
-        <ReanimatedSwipeable 
+        <ReanimatedSwipeable
         friction={1}
         enableTrackpadTwoFingerGesture
         rightThreshold={40}
@@ -80,52 +80,52 @@ const HistoryExpenseCard = (props: Props) => {
           </View>
         </ReanimatedSwipeable>
       </GestureHandlerRootView>
-    )
+    );
   }
-  
-}
 
-export default HistoryExpenseCard
+};
+
+export default HistoryExpenseCard;
 
 const styles = StyleSheet.create({
   ctUser:{
-    backgroundColor:"#aaaaaa",
+    backgroundColor:'#aaaaaa',
     borderRadius:8,
     paddingHorizontal:8,
     paddingVertical:16,
     marginTop:8,
-    
-    flexDirection:"row",
-    justifyContent:"space-between"
-   
+
+    flexDirection:'row',
+    justifyContent:'space-between',
+
   },
   ct:{
-    backgroundColor:"#aaaaaa",
+    backgroundColor:'#aaaaaa',
     borderRadius:8,
     paddingHorizontal:8,
     paddingVertical:16,
     marginTop:8,
-   
+
   },
   textWhiteSemiBold16px:{
     fontWeight:'semibold',
     fontSize:16,
-    color:"#ffffff"
+    color:'#ffffff',
   },
   textGreenBold16px:{
     fontWeight:'semibold',
     fontSize:24,
-    color:"#b3e3b3",
-    textAlign:"right"
+    color:'#b3e3b3',
+    textAlign:'right',
   },
   textWhiteSemiBold12px:{
     fontWeight:'semibold',
     fontSize:12,
-    color:"#ffffff"
+    color:'#ffffff',
   },
   leftAction:{
-    justifyContent:"center",
-    alignItems:"center",
+    justifyContent:'center',
+    alignItems:'center',
   },
   swipeable: {
     height: 50,
@@ -133,11 +133,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   wpTrash:{
-    justifyContent:"center", 
-    alignItems:"center", 
-    width, 
-    backgroundColor:"papayawhip", 
-    borderRadius:8
-  }
+    justifyContent:'center',
+    alignItems:'center',
+    width,
+    backgroundColor:'papayawhip',
+    borderRadius:8,
+  },
 
-})
+});

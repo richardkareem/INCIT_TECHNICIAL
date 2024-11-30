@@ -1,6 +1,6 @@
-import { MessageType, showMessage as showToast } from "react-native-flash-message";
+import { MessageType, showMessage as showToast } from 'react-native-flash-message';
 
-export const showMessage = (message : string, type:MessageType = "success"  ) => {
+export const showMessage = (message : string, type:MessageType = 'success'  ) => {
     showToast({
       message,
       // description: 'This is our second message',

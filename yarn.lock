@@ -3696,6 +3696,7 @@ __metadata:
     bcrypt: ^5.1.1
     dayjs: ^1.11.13
     eslint: ^8.19.0
+    eslint-plugin-unused-imports: ^4.1.4
     firebase: ^10.14.1
     jest: ^29.6.3
     prettier: 2.8.8
@@ -5525,6 +5526,19 @@ __metadata:
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
   checksum: 22d1bdf0dd4cdbf8c57ce563c58d43c5f5e1da0b08d27d0a69d7126d9e8afcb74a5befae97dab4019b4c6029ae617b6a0af1709cb9e0439d5757b01b392d2ca7
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-unused-imports@npm:^4.1.4":
+  version: 4.1.4
+  resolution: "eslint-plugin-unused-imports@npm:4.1.4"
+  peerDependencies:
+    "@typescript-eslint/eslint-plugin": ^8.0.0-0 || ^7.0.0 || ^6.0.0 || ^5.0.0
+    eslint: ^9.0.0 || ^8.0.0
+  peerDependenciesMeta:
+    "@typescript-eslint/eslint-plugin":
+      optional: true
+  checksum: 1f4ce3e3972699345513840f3af1b783033dbc3a3e85b62ce12b3f6a89fd8c92afe46d0c00af40bacb14465445983ba0ccc326a6fd5132553061fb0e47bcba19
   languageName: node
   linkType: hard
 

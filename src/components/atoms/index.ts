@@ -1,11 +1,11 @@
 
-import Button from "./button";
-import CardExpense from "./cardExpense";
-import CardUserMonitor from "./cardUserMontitor";
-import Gap from "./gap";
-import Header from "./header";
-import HistoryExpenseCard from "./historyExpenseCard";
-import TextInput from "./textInput";
+import Button from './button';
+import CardExpense from './cardExpense';
+import CardUserMonitor from './cardUserMontitor';
+import Gap from './gap';
+import Header from './header';
+import HistoryExpenseCard from './historyExpenseCard';
+import TextInput from './textInput';
 
 export {
     Button,
@@ -14,5 +14,5 @@ export {
     Gap,
     CardExpense,
     HistoryExpenseCard,
-    CardUserMonitor
-}
+    CardUserMonitor,
+};

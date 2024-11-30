@@ -1,10 +1,10 @@
-import { NativeStackNavigationProp, NativeStackScreenProps } from "@react-navigation/native-stack";
-import { userData } from "./global.type";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { userData } from './global.type';
 export type RootStackParamList = {
     MainApp: undefined;
     LoginScreen:undefined;
     RegisterScreen:undefined;
-    SplashScreen: undefined;    
+    SplashScreen: undefined;
     InputScreen:undefined;
     FilterExpenseScreen : undefined
     DetailHistoryScreen: {data: []} | undefined

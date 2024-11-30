@@ -1,4 +1,3 @@
-import { DateType } from "react-native-ui-datepicker";
 
 export type RegisterData = {
        fullname: string;

@@ -1,124 +1,123 @@
-import { StyleSheet, Text, View,SafeAreaView, Pressable } from 'react-native'
-import React, { useState } from 'react'
-import { Button, TextInput } from '../../components'
-import { TouchableOpacity } from 'react-native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../types/route.type'
-import { registerUser } from '../../services/authModels.service'
-import { RegisterData } from '../../types/global.type'
-import { showMessage } from '../../utils/showMessage'
-import Feather from "react-native-vector-icons/Feather"
-import db from '../../db/db'
-import users from '../../db/users'
+import { StyleSheet, Text, View,SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { Button, TextInput } from '../../components';
+import { TouchableOpacity } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../types/route.type';
+import { RegisterData } from '../../types/global.type';
+import { showMessage } from '../../utils/showMessage';
+import Feather from 'react-native-vector-icons/Feather';
+import db from '../../db/db';
+import users from '../../db/users';
 
 const RegisterScreen = ({navigation}:{navigation:NativeStackNavigationProp<RootStackParamList>}) => {
   const [form, setForm] = useState({
-    fullname: "",
-    email:"",
-    password:"",
-    rePassword:""
-  })
-  const [visiblePass, setVisiblePass] = useState(true)
-  const [visiblePass2, setVisiblePass2] = useState(true)
+    fullname: '',
+    email:'',
+    password:'',
+    rePassword:'',
+  });
+  const [visiblePass, setVisiblePass] = useState(true);
+  const [visiblePass2, setVisiblePass2] = useState(true);
   const handleRegister = async() =>{
     try{
       const database = await db.connectToDb();
-      await users.createUser(database, {fullName:form.fullname, password:form.password, email: form.email, role:"user"})
-      setForm({email:"", fullname:"", password:"",rePassword:""})
-      showMessage("Success Register, you can login")
-      navigation.goBack()
+      await users.createUser(database, {fullName:form.fullname, password:form.password, email: form.email, role:'user'});
+      setForm({email:'', fullname:'', password:'',rePassword:''});
+      showMessage('Success Register, you can login');
+      navigation.goBack();
     }catch(e : Error | unknown){
       if(e instanceof Error){
-        showMessage(e.message, "danger")
+        showMessage(e.message, 'danger');
       }
     }
-  }
+  };
 
   const onChangeText = (key:keyof RegisterData, value:string) =>{
     setForm(current =>{
       return{
         ...current,
-        [key]:value
-      }
-    })
-  }
+        [key]:value,
+      };
+    });
+  };
   return (
     <SafeAreaView style={styles.screen}>
       <Text style={styles.txtBlack16pxSemiBold}>Register</Text>
-      <TextInput 
+      <TextInput
       onChangeText={(t)=> onChangeText('fullname', t)}
       value={form.fullname}
-      label='full name' 
-      placeholder='John Doe'/>
-      <TextInput 
+      label="full name"
+      placeholder="John Doe"/>
+      <TextInput
       onChangeText={(t)=> onChangeText('email', t)}
       value={form.email}
-      placeholder='john@mail.com'
-      keyboardType='email-address'
-      styleContainer={styles.txtInput} 
+      placeholder="john@mail.com"
+      keyboardType="email-address"
+      styleContainer={styles.txtInput}
       autoCapitalize={'none'}
-      label='Email' />
-      <TextInput 
+      label="Email" />
+      <TextInput
       onPressIcon={()=> setVisiblePass(prev => !prev)}
       value={form.password}
-      icon={visiblePass ? <Feather name='eye-off' size={16} /> : <Feather name='eye' size={16} />}
+      icon={visiblePass ? <Feather name="eye-off" size={16} /> : <Feather name="eye" size={16} />}
       onChangeText={(t)=> onChangeText('password', t)}
-      placeholder='********'
+      placeholder="********"
       secureTextEntry={visiblePass}
-      styleContainer={styles.txtInput} 
-      label='Password' />
-      <TextInput 
+      styleContainer={styles.txtInput}
+      label="Password" />
+      <TextInput
       onPressIcon={()=> setVisiblePass2(prev => !prev)}
       value={form.rePassword}
-      icon={visiblePass2 ? <Feather name='eye-off' size={16} /> : <Feather name='eye' size={16} />}
+      icon={visiblePass2 ? <Feather name="eye-off" size={16} /> : <Feather name="eye" size={16} />}
       onChangeText={(t)=> onChangeText('rePassword', t)}
-      placeholder='********'
+      placeholder="********"
       secureTextEntry={visiblePass2}
-      styleContainer={styles.txtInput} 
-      label='Password' />
+      styleContainer={styles.txtInput}
+      label="Password" />
       <View style={styles.wpTextToLogin}>
         <Text style={[styles.txtBlack12pxBold]}>Already Have Account? </Text>
-        <TouchableOpacity 
-        onPress={()=> {navigation.goBack()}}
+        <TouchableOpacity
+        onPress={()=> {navigation.goBack();}}
         ><Text style={styles.txtBlack12pxBold}>Login</Text></TouchableOpacity>
       </View>
-      <Button 
+      <Button
       onPress={handleRegister}
-      style={styles.btn}  
-      label='Register'  />
+      style={styles.btn}
+      label="Register"  />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default RegisterScreen
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
   screen:{
     flex:1,
-    justifyContent:"center",
-    alignItems:"center"
+    justifyContent:'center',
+    alignItems:'center',
   },
   txtInput:{
-    marginTop:8
+    marginTop:8,
   },
   btn:{
-    marginTop:16
+    marginTop:16,
   },
   txtBlack12pxBold:{
-    fontWeight:"bold",
-    fontSize:12
+    fontWeight:'bold',
+    fontSize:12,
   },
   txtBlack16pxSemiBold:{
-    fontWeight:"bold",
-    fontSize:32
+    fontWeight:'bold',
+    fontSize:32,
   },
- 
+
   wpTextToLogin:{
-    flexDirection:"row",
-    justifyContent:"center",
+    flexDirection:'row',
+    justifyContent:'center',
     columnGap: 4,
-    marginTop:16
+    marginTop:16,
 
-  }
+  },
 
-})
+});
