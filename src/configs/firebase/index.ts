@@ -7,15 +7,18 @@ import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyDwwQNcMD1gOwh7-imo2SeX8NYrzdtWJHs',
-  authDomain: 'incit-87418.firebaseapp.com',
-  projectId: 'incit-87418',
-  storageBucket: 'incit-87418.appspot.com',
-  messagingSenderId: '1008677063192',
-  appId: '1:1008677063192:web:16fe35c418fdbcc579916d',
 
+  apiKey: "secret",
+  authDomain: "secret",
+  projectId: "secret",
+  storageBucket: "secret",
+  messagingSenderId: "secret",
+  appId: "secret",
+ 
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+
+export const db = getFirestore(app)
+
