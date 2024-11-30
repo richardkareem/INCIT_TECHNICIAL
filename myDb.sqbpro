@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="myDb.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1433"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="expense" custom_title="0" dock_id="2" table="4,7:mainexpense"/><dock_state state="000000ff00000000fd00000001000000020000037400000341fc0100000001fc00000000000003740000010100fffffffa000000010100000002fb000000160064006f0063006b00420072006f00770073006500310000000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000ffffffff0000010100ffffff000002940000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="User" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="57"/><column index="2" value="73"/><column index="3" value="43"/><column index="4" value="71"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="expense" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="21"/><column index="2" value="58"/><column index="3" value="48"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">INSERT INTO User (full_name, email, password) VALUES (&quot;Richard&quot;, &quot;mail@mail.com&quot;,&quot;somepw&quot; );
+
+SELECT * FROM User;
+
+SELECT COUNT(email) FROM User WHERE email = &quot;mail@mail.com&quot;;
+
+UPDATE User set email = &quot;awikwok@mail.com&quot; WHERE id_user = 1;
+
+INSERT INTO expense (id_user, name, id_category) VALUES (1, &quot;Jam Tangan&quot;, 1 );
+
+SELECT * FROM expense;
+
+DELETE FROM expense where id_user = 1;
+
+
+
+/* DESC */
+PRAGMA table_info(icon);
+PRAGMA table_info(category);
+
+INSERT INTO category (name, icon) VALUES (&quot;Jajan&quot;, &quot;https://example.com&quot;);
+SELECT * from category;
+
+SELECT id, full_name, email, password, name as expense
+FROM expense
+INNER JOIN User ON expense.id_user = User.id_user
+WHERE expense.id_user = User.id_user;
+
+SELECT expense.id, full_name,expense.name as expense
+FROM expense
+INNER JOIN User on expense.id_user = User.id_user
+INNER JOIN category on expense.id_category = category.id;</sql><current_tab id="0"/></tab_sql></sqlb_project>

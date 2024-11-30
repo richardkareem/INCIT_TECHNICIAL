@@ -40,6 +40,7 @@ export const getAllUserByEmail = async(email:string, password:string, onSuccess:
             throw new Error("email or password is incorrect")
         }
     } catch (error ) {
+        console.log(error)
         throw error
     }
     

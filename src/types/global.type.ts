@@ -8,13 +8,12 @@ export type RegisterData = {
 }
 
 export type userData = {
-       fullname: string;
+       id_user: number;
+       full_name: string;
        email:string;
        role: string;
        token: string;
-       expenses: ExpenseType[],
-       totalExpenses: string
-
+       password: string;
 }
 
 export type SetExpenseType = {
@@ -24,8 +23,16 @@ export type SetExpenseType = {
        category: string
    }
 export type ExpenseType = {
-       create_at: any,
+       id: number,
+       id_category:number,
        expense: string,
        amount: string,
        category: string
+       create_at: any,
+}
+
+export type CategoryType = {
+       id: number,
+       category_name: string,
+       icon: string,
 }

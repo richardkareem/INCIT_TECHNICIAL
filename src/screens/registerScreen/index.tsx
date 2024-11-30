@@ -8,6 +8,8 @@ import { registerUser } from '../../services/authModels.service'
 import { RegisterData } from '../../types/global.type'
 import { showMessage } from '../../utils/showMessage'
 import Feather from "react-native-vector-icons/Feather"
+import db from '../../db/db'
+import users from '../../db/users'
 
 const RegisterScreen = ({navigation}:{navigation:NativeStackNavigationProp<RootStackParamList>}) => {
   const [form, setForm] = useState({
@@ -20,7 +22,8 @@ const RegisterScreen = ({navigation}:{navigation:NativeStackNavigationProp<RootS
   const [visiblePass2, setVisiblePass2] = useState(true)
   const handleRegister = async() =>{
     try{
-      await registerUser(form)
+      const database = await db.connectToDb();
+      await users.createUser(database, {fullName:form.fullname, password:form.password, email: form.email, role:"user"})
       setForm({email:"", fullname:"", password:"",rePassword:""})
       showMessage("Success Register, you can login")
       navigation.goBack()
@@ -44,37 +47,39 @@ const RegisterScreen = ({navigation}:{navigation:NativeStackNavigationProp<RootS
       <Text style={styles.txtBlack16pxSemiBold}>Register</Text>
       <TextInput 
       onChangeText={(t)=> onChangeText('fullname', t)}
+      value={form.fullname}
       label='full name' 
       placeholder='John Doe'/>
       <TextInput 
       onChangeText={(t)=> onChangeText('email', t)}
+      value={form.email}
       placeholder='john@mail.com'
       keyboardType='email-address'
       styleContainer={styles.txtInput} 
       autoCapitalize={'none'}
       label='Email' />
       <TextInput 
-        onPressIcon={()=> setVisiblePass(prev => !prev)}
-        icon={visiblePass ? <Feather name='eye-off' size={16} /> : <Feather name='eye' size={16} />}
+      onPressIcon={()=> setVisiblePass(prev => !prev)}
+      value={form.password}
+      icon={visiblePass ? <Feather name='eye-off' size={16} /> : <Feather name='eye' size={16} />}
       onChangeText={(t)=> onChangeText('password', t)}
       placeholder='********'
-      autoCapitalize={'none'}
       secureTextEntry={visiblePass}
       styleContainer={styles.txtInput} 
       label='Password' />
       <TextInput 
       onPressIcon={()=> setVisiblePass2(prev => !prev)}
+      value={form.rePassword}
       icon={visiblePass2 ? <Feather name='eye-off' size={16} /> : <Feather name='eye' size={16} />}
       onChangeText={(t)=> onChangeText('rePassword', t)}
       placeholder='********'
-      autoCapitalize={'none'}
       secureTextEntry={visiblePass2}
       styleContainer={styles.txtInput} 
       label='Password' />
       <View style={styles.wpTextToLogin}>
         <Text style={[styles.txtBlack12pxBold]}>Already Have Account? </Text>
         <TouchableOpacity 
-        onPress={()=> navigation.navigate('LoginScreen')}
+        onPress={()=> {navigation.goBack()}}
         ><Text style={styles.txtBlack12pxBold}>Login</Text></TouchableOpacity>
       </View>
       <Button 

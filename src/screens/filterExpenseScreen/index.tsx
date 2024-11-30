@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../types/redux.type'
 import { Button, Gap } from '../../components'
 import { Dropdown } from 'react-native-element-dropdown'
@@ -8,36 +8,35 @@ import Antdesign from 'react-native-vector-icons/AntDesign'
 import DateTimePicker from 'react-native-ui-datepicker'
 import { RootStackParamList } from '../../types/route.type'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { filterExpense } from '../../redux/action/expense'
 import { toggleisFiltering } from '../../redux/reducer/global'
+import expenseDb from '../../db/expense'
+import { ExpenseType } from '../../types/global.type'
 
 const FilterExpenseScreen = ({navigation}: {navigation: NativeStackNavigationProp<RootStackParamList>}) => {
     const dispatch = useAppDispatch()
     const [loading, setLoading] = useState(false)
-    const {expenseByCategory} = useAppSelector(state => state.global)
-    type Dropdown = {
-        label:string,
-        value:string
-    }
-    const [categories, setCategories] = useState<Dropdown[]>([])
-
-    useEffect(() =>{
-        setCategories(prev =>{
-            return expenseByCategory.map(item => {
-                return {label: item.name, value: item.name}
-            })
-
-        })
+    const {category, user, expense} = useAppSelector(state => state.global)
+    
+    const categories = useMemo(() =>{
+      return category.map((item)=>{
+        return {
+          label:item.category_name,
+          value:item.id
+        }
+      })
     },[])
-
     const [isFocus, setIsFocus] = useState(false)
-    const [value, setValue] = useState("")
+    const [value, setValue] = useState(0)
+    const [placeholderDropdown, setPlaceholderDropdown] = useState('')
     const [date, setDate] = useState<{from:  string, to: string}>({
         from: new Date(new Date().setDate(new Date().getDate() -1)).toISOString(),
         to: new Date().toISOString()
     })
     const handleBtn = () =>{
-        dispatch(filterExpense(date?.from, date?.to, value, setLoading))
+      const {filterExpense} = expenseDb
+      // console.log({value})
+      // console.log(date)
+        dispatch(filterExpense(user.id_user, date.from, date.to, Number(value))) //
         dispatch(toggleisFiltering(true))
         navigation.goBack()
       }
@@ -71,13 +70,14 @@ const FilterExpenseScreen = ({navigation}: {navigation: NativeStackNavigationPro
           maxHeight={300}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Select item' : '...'}
+          placeholder={!isFocus && value == 0 ? 'Select item'  :  isFocus && value > 0 ?  '...' : placeholderDropdown}
           searchPlaceholder="Search..."
-          value={value}
+          value={placeholderDropdown}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
-            setValue(item.label);
+            setValue(item.value);
+            setPlaceholderDropdown(item.label)
             setIsFocus(false);
           }}
           renderLeftIcon={() => (

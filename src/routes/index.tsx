@@ -1,10 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import {createNativeStackNavigator} from "@react-navigation/native-stack"
-import { DetailHistoryScreen, EditProfileScreen, FilterExpenseScreen, InputScreen, ListUsersScreen, LoginScreen, ProfileScreen, RegisterScreen, SplashScreen } from "../screens"
+import { DetailHistoryScreen, EditProfileScreen, TestSqlite, FilterExpenseScreen, InputScreen, ListUsersScreen, LoginScreen, ProfileScreen, RegisterScreen, SplashScreen } from "../screens"
 import MyTabsBar from "./MyTabsBar"
 import HomeScreen from "../screens/homeScreen"
 import { RootStackParamList } from "../types/route.type"
-
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -24,7 +23,7 @@ const MainApp = () =>{
 
 export const Route = () =>{
     return(
-        <Stack.Navigator  >
+        <Stack.Navigator>
             <Stack.Screen name="SplashScreen" component={SplashScreen} options={{headerShown:false}} />
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{headerShown:false}} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}} />
@@ -32,6 +31,7 @@ export const Route = () =>{
             <Stack.Screen name="DetailHistoryScreen" initialParams={{data:[],}} component={DetailHistoryScreen}  options={{headerTitle:"Detail History", headerBackTitleVisible:false}} />
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen}  options={{headerTitle:"Edit Profile", headerBackTitleVisible:false}} />
             <Stack.Screen name="ListUsersScreen"  component={ListUsersScreen} initialParams={{user: undefined}} options={{headerTitle:"List User", headerBackTitleVisible:false}} />
+            <Stack.Screen name="TestSqlite"  component={TestSqlite} />
             <Stack.Group screenOptions={{presentation:"modal", animation:"simple_push", title:"Input"}}>
                  <Tab.Screen 
                  name="InputScreen"  

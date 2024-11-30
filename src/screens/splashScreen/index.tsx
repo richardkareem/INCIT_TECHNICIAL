@@ -6,25 +6,33 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../types/route.type'
 import { getData, removeItemValue } from '../../utils/storeage'
 import { useAppDispatch, useAppSelector } from '../../types/redux.type'
+import services from '../../db/services'
 import { setDataUser } from '../../redux/reducer/global'
-
-
+import expense from '../../db/expense'
+import db from '../../db/db'
 
 const SplashScreen = ({navigation}:{navigation: NativeStackNavigationProp<RootStackParamList>}) => {
-    const {user} = useAppSelector(selector => selector.global)
     const dispatch = useAppDispatch()
     useEffect(()=>{
        const redirect = async() =>{
-        const profile = JSON.parse(await getData('profile'))
+        dispatch(services.initialTableAndValue())
+        const profile = await getData('profile')     
         if(profile){
           if(profile?.token){
-            dispatch(setDataUser(profile))
+            dispatch(setDataUser({
+              email:profile.email, 
+              full_name:profile.full_name,
+               id_user: profile.id_user,
+               role: profile.role,
+               token: profile.token,
+            }))
+            dispatch(expense.getExpenseUser(profile?.id_user))
             navigation.reset({index:0, routes:[{name:"MainApp"}]})
           }else{
             removeItemValue('profile')
             navigation.reset({index:0, routes:[{name:"LoginScreen"}]})
 
-          }
+        }
         }else{
           navigation.reset({index:0, routes:[{name:"LoginScreen"}]})
         }

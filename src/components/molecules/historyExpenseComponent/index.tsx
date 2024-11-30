@@ -10,14 +10,14 @@ import { toIdr } from '../../../utils/helper';
 
 const HistoryExpenseComponent = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
-    const {user} = useAppSelector(state => state.global);
-    const {expenses} = user
+    const {user, expense : expenses} = useAppSelector(state => state.global);
     const [sliced, setSliced] = useState<ExpenseType[]>([])
-    useEffect(() =>{
-      setSliced(() =>{
-        return [...expenses].sort((a:any,b:any)=> new Date(b?.create_at) - new Date(a?.create_at)).slice(0,3)
-      })
-    },[expenses])
+    
+    // useEffect(() =>{
+    //   setSliced(() =>{
+    //     return [...expenses].sort((a:any,b:any)=> new Date(b?.create_at) - new Date(a?.create_at)).slice(0,3)
+    //   })
+    // },[expenses])
     return (
     <View>
       <View style={styles.row}>
@@ -29,7 +29,7 @@ const HistoryExpenseComponent = () => {
         )}
       </View>
       <Gap height={8} />
-      {sliced?.length > 0 ? sliced?.map((item, idx )=> {
+      {expenses?.length > 0 ? expenses.map((item, idx )=> {
         return(
           <HistoryExpenseCard 
           type='users'

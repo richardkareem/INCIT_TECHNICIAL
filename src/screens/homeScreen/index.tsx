@@ -3,6 +3,7 @@ import React,{useEffect, useState} from 'react'
 import { useAppDispatch, useAppSelector } from '../../types/redux.type';
 import { DashboardAdmin, DashboardUser, } from '../../components';
 import { getAllDataUsers, getAllExpense } from '../../redux/action/expense';
+import expense from '../../db/expense';
 const HomeScreen = () => {
   const {user} = useAppSelector(state => state.global)
   const dispatch = useAppDispatch();
@@ -10,6 +11,7 @@ const HomeScreen = () => {
   useEffect(() =>{
     if(user.role === "user"){
       dispatch(getAllExpense(setLoading))
+      dispatch(expense.getExpenseUser(user.id_user))
     }else{
       dispatch(getAllDataUsers())
     }

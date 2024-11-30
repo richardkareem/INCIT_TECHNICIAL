@@ -3,9 +3,11 @@ import React from 'react'
 import { useAppSelector } from '../../../types/redux.type'
 import { useNavigation } from '@react-navigation/native'
 import { ScrollView } from 'react-native'
-import { CardUserMonitor, Gap } from '../../atoms'
+import { Button, CardUserMonitor, Gap } from '../../atoms'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../types/route.type'
+import db from '../../../db/db'
+import categoryTable from '../../../db/category'
 
 const DashboardAdmin = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -15,13 +17,13 @@ const DashboardAdmin = () => {
        <Text style={styles.textBlack16Regular}>Hello {user?.fullname}</Text>
        <Gap height={16} />
        <View style={styles.wpCard}>
-        {allDataUsers?.length > 0 && allDataUsers.map((item, idx) => (
+        {/* {allDataUsers?.length > 0 && allDataUsers.map((item, idx) => (
          <CardUserMonitor 
             onPress={()=> navigation.navigate('ListUsersScreen', {user: item})}
             count={item?.expenses?.length || 0} 
             label={`User ${item.fullname}`} 
             key={idx}  />
-        ))}
+        ))} */}
       
        </View>
     </ScrollView>

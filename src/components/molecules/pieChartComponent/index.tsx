@@ -7,7 +7,7 @@ const {width} = Dimensions.get('window')
     name: string,
     population: number,
     color: string,
-    legendFontColor: 'string',
+    legendFontColor: string,
     legendFontSize: number
   }
   type Props = {

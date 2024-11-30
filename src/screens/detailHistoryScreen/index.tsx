@@ -6,13 +6,13 @@ import { useAppSelector } from '../../types/redux.type'
 import { HistoryExpenseCard } from '../../components'
 
 const DetailHistoryScreen = () => {
-  const {user} = useAppSelector(selector => selector.global)
-  const data = user?.expenses
+  const {user, expense} = useAppSelector(selector => selector.global)
+  
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView style={styles.ct}>
         
-        {data?.map((item, idx)=> <HistoryExpenseCard amount={item.amount} date={item.create_at} title={item.expense} key={idx} />)}
+        {expense?.map((item, idx)=> <HistoryExpenseCard category='' amount={item.amount} date={item.create_at} title={item.expense} key={idx} />)}
       </ScrollView>
     </SafeAreaView>
   )

@@ -9,7 +9,7 @@ import FilterExpenseScreen from "./filterExpenseScreen";
 import DetailHistoryScreen from "./detailHistoryScreen";
 import EditProfileScreen from "./editProfileScreen";
 import ListUsersScreen from "./listUsersScreen";
-
+import TestSqlite from "./testSqlite"
 export {
     SplashScreen,
     NotificationScreen,
@@ -22,4 +22,5 @@ export {
     DetailHistoryScreen,
     EditProfileScreen,
     ListUsersScreen,
+    TestSqlite,
 }
