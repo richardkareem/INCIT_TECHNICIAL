@@ -10,6 +10,7 @@ export type RootStackParamList = {
     DetailHistoryScreen: {data: []} | undefined
     EditProfileScreen: undefined
     ListUsersScreen: undefined | {user : userData}
+    AddNewCategoryScreen: undefined
   };
 
   export type RootStackScreenProps<T extends keyof RootStackParamList> =

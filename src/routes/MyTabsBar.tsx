@@ -8,29 +8,30 @@ type IconProps = {
   import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
   import Octicons from 'react-native-vector-icons/Octicons';
   import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entype from 'react-native-vector-icons/Entypo'
   const Icon = ({ label, focus }: IconProps) => {
     switch (label) {
        case 'Home':
         return focus ? (
           <View style={{ alignItems: 'center' }}>
-            <AntDesign name="home" size={24} />
+             <Octicons name="pencil" size={24} />
             {/* <Gap height={4} /> */}
           </View>
-        ) : <AntDesign name="home" size={24} />;
+        ) : <Octicons name="pencil" size={24} />;
         case 'Profile':
           return focus ? (
             <View style={{ alignItems: 'center' }}>
-              <Octicons name="pencil" size={24} />
+              <AntDesign name="user" size={24} />
               {/* <Gap height={4} /> */}
             </View>
-          ) : <Octicons name="pencil" size={24} />;
-      case 'Edit':
+          ) :<AntDesign name="user" size={24} />
+      case 'Overview':
         return focus ? (
           <View style={{ alignItems: 'center' }}>
-            <AntDesign name="setting" size={24} />
+            <Entype name="circular-graph" size={24} />
             {/* <Gap height={4} /> */}
           </View>
-        ) : <AntDesign name="setting" size={24} />;
+        ) :  <Entype name="circular-graph" size={24} />;
       default:
         return focus ? (
           <View style={{ alignItems: 'center' }}>

@@ -20,6 +20,7 @@ export type SetExpenseType = {
        note:string,
        expense:string
        category: string
+       color: string
    }
 export type ExpenseType = {
        id: number,
@@ -27,11 +28,13 @@ export type ExpenseType = {
        expense: string,
        amount: string,
        category: string
+       color: string,
        create_at: any,
 }
 
 export type CategoryType = {
-       id: number,
        category_name: string,
        icon: string,
+       color?: string,
+       id?: number,
 }

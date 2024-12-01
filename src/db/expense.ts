@@ -1,13 +1,13 @@
-import { SQLiteDatabase } from 'react-native-sqlite-storage';
+ import { SQLiteDatabase } from 'react-native-sqlite-storage';
 import { AppDispatch, AppThunk } from '../types/redux.type';
 import db from './db';
 import { setExpenseUser } from '../redux/reducer/global';
 import { ExpenseType } from '../types/global.type';
 
 
-const getExpenseByIdUser = async(db: SQLiteDatabase,id: number) =>{
+const getExpenseByIdUser = async(database: SQLiteDatabase,id: number) =>{
     const q = `	
-    SELECT expense.id, expense.id_category, full_name, expense_name AS expense, category_name as category, cost as amount, create_at
+    SELECT expense.id, expense.id_category, full_name, expense_name AS expense, category_name as category, cost as amount, expense.color, create_at
 	FROM expense 
 	INNER JOIN user ON expense.id_user = user.id_user 
 	INNER JOIN category on expense.id_category = category.id
@@ -16,7 +16,7 @@ const getExpenseByIdUser = async(db: SQLiteDatabase,id: number) =>{
 
     try {
         const expenses : any[] = [];
-        const expense = await db.executeSql(q, value);
+        const expense = await database.executeSql(q, value);
 
         expense.forEach(result =>{
             console.log('panjang length:', result.rows.length);
@@ -32,11 +32,11 @@ const getExpenseByIdUser = async(db: SQLiteDatabase,id: number) =>{
     }
 };
 
-const getAllExpense = async(db: SQLiteDatabase) =>{
+const getAllExpense = async(database: SQLiteDatabase) =>{
     const q = 'SELECT * from expense;';
     try{
         const expenses : any[] = [];
-        const expense = await db.executeSql(q);
+        const expense = await database.executeSql(q);
         expense.forEach(result =>{
             for(let i = 0; i < result.rows.length; i++){
                 expenses.push(result.rows.item(i));
@@ -60,12 +60,12 @@ const getExpenseUser = (id_user: number) => async(dispatch:AppDispatch) =>{
     }
 };
 
-const createExpense = (db: SQLiteDatabase, expense: ExpenseType, id_user: number, id_category: number) =>
+const createExpense = (database: SQLiteDatabase, expense: ExpenseType, id_user: number, id_category: number) =>
         async(dispatch: AppDispatch) =>
     {
     const q = `
-    INSERT INTO expense (id_user, id_category, expense_name, create_at, cost)
-    VALUES (?,?,?,?,?);
+    INSERT INTO expense (id_user, id_category, expense_name, create_at, cost, color)
+    VALUES (?,?,?,?,?,?);
     `;
     const value = [];
     value.push(id_user);
@@ -73,10 +73,11 @@ const createExpense = (db: SQLiteDatabase, expense: ExpenseType, id_user: number
     value.push(expense.expense);
     value.push(expense.create_at);
     value.push(Number(expense.amount));
+    value.push(expense.color);
 
     console.log('ini value: ', value);
     try {
-        await db.executeSql(q, value);
+        await database.executeSql(q, value);
 
         dispatch(getExpenseUser(id_user));
     } catch (error) {

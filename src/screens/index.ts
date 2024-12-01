@@ -10,6 +10,8 @@ import DetailHistoryScreen from './detailHistoryScreen';
 import EditProfileScreen from './editProfileScreen';
 import ListUsersScreen from './listUsersScreen';
 import TestSqlite from './testSqlite';
+import OverviewScreen from './overviewScreen';
+
 export {
     SplashScreen,
     NotificationScreen,
@@ -23,4 +25,5 @@ export {
     EditProfileScreen,
     ListUsersScreen,
     TestSqlite,
+    OverviewScreen
 };

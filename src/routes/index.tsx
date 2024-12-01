@@ -1,9 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { DetailHistoryScreen, EditProfileScreen, TestSqlite, FilterExpenseScreen, InputScreen, ListUsersScreen, LoginScreen, ProfileScreen, RegisterScreen, SplashScreen } from '../screens';
+import { DetailHistoryScreen, EditProfileScreen, TestSqlite, FilterExpenseScreen, InputScreen, ListUsersScreen, LoginScreen, ProfileScreen, RegisterScreen, SplashScreen, OverviewScreen } from '../screens';
 import MyTabsBar from './MyTabsBar';
 import HomeScreen from '../screens/homeScreen';
 import { RootStackParamList } from '../types/route.type';
+import AddNewCategoryScreen from '../screens/addNewCategoryScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -16,6 +17,7 @@ const MainApp = () =>{
         tabBar={props => <MyTabsBar {...props} />}
         >
             <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="Overview" component={OverviewScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
     );
@@ -43,6 +45,12 @@ export const Route = () =>{
                  component={FilterExpenseScreen}
                  options={{title:'Filter Expense'}}
                  />
+                  <Tab.Screen
+                 name="AddNewCategoryScreen"
+                 component={AddNewCategoryScreen}
+                 options={{title:'Add New Category'}}
+                 />
+
             </Stack.Group>
         </Stack.Navigator>
     );

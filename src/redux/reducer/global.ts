@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CategoryType, ExpenseType, userData } from '../../types/global.type';
+import { ColorType, IconType } from '../../db/db.type';
 
 type InitialProps = {
     user: userData,
@@ -9,6 +10,8 @@ type InitialProps = {
     allDataUsers: userData[],
     category: CategoryType[],
     expense: ExpenseType[],
+    color: ColorType[]
+    icon: IconType[]
     // filteredExpense: ExpenseType[]
 }
 
@@ -27,6 +30,8 @@ const initialState : InitialProps = {
     allDataUsers: [],
     category: [],
     expense:[],
+    color:[],
+    icon: []
     // filteredExpense:[]
 };
 
@@ -55,8 +60,14 @@ const globalSlice = createSlice({
         setCategoryData: (state, action:PayloadAction<CategoryType[]>) =>{
             state.category = action.payload;
         },
+        setColorData: (state, action:PayloadAction<ColorType[]>) =>{
+            state.color = action.payload
+        },
+        setIconData: (state, action:PayloadAction<IconType[]>) =>{
+            state.icon = action.payload
+        },
     },
 });
 
-export const {setDataUser, setExpenseByCategory, toggleisFiltering, setExpenseByCategoryDummy, setAllDataUsers, setCategoryData, setExpenseUser} = globalSlice.actions;
+export const {setIconData, setColorData,setDataUser, setExpenseByCategory, toggleisFiltering, setExpenseByCategoryDummy, setAllDataUsers, setCategoryData, setExpenseUser} = globalSlice.actions;
 export default globalSlice.reducer;

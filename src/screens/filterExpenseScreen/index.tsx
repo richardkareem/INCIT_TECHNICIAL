@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {StyleSheet, Text, View } from 'react-native';
 import React, { useMemo, useState } from 'react';
@@ -10,6 +11,7 @@ import { RootStackParamList } from '../../types/route.type';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { toggleisFiltering } from '../../redux/reducer/global';
 import expenseDb from '../../db/expense';
+import dayjs from 'dayjs';
 
 const FilterExpenseScreen = ({navigation}: {navigation: NativeStackNavigationProp<RootStackParamList>}) => {
     const dispatch = useAppDispatch();
@@ -27,10 +29,12 @@ const FilterExpenseScreen = ({navigation}: {navigation: NativeStackNavigationPro
     const [isFocus, setIsFocus] = useState(false);
     const [value, setValue] = useState(0);
     const [placeholderDropdown, setPlaceholderDropdown] = useState('');
-    const [date, setDate] = useState<{from:  string, to: string}>({
-        from: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        to: new Date().toISOString(),
-    });
+    const [date, setDate] = useState<{from:  string, to: string}>(()=> {
+      const d = new Date();
+      return{
+        from: new Date(d.getFullYear(), d.getMonth(),1).toISOString(),
+        to: new Date(d.getFullYear(), d.getMonth() + 1, 0).toISOString(),
+    };});
     const handleBtn = () =>{
       const {filterExpense} = expenseDb;
       // console.log({value})
@@ -48,13 +52,18 @@ const FilterExpenseScreen = ({navigation}: {navigation: NativeStackNavigationPro
             mode="range"
             startDate={date.from}
             endDate={date.to}
+            initialView='month'
+            displayFullDays={false}
             onChange={(params) => setDate((prev:any) => {
-                return{
+              const startDate = dayjs(params.startDate).format('DD/MMMM/YYYY');
+              console.log({startDate})
+              return{
                     ...prev,
                     from:params.startDate || '',
                     to: params.endDate || '',
                 };
             })}
+            maxDate={date.to}
             />
         <Text>Filter by Category</Text>
         <Gap height={16} />
@@ -69,6 +78,7 @@ const FilterExpenseScreen = ({navigation}: {navigation: NativeStackNavigationPro
           maxHeight={300}
           labelField="label"
           valueField="value"
+          // eslint-disable-next-line eqeqeq
           placeholder={!isFocus && value == 0 ? 'Select item'  :  isFocus && value > 0 ?  '...' : placeholderDropdown}
           searchPlaceholder="Search..."
           value={placeholderDropdown}
