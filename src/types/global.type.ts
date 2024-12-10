@@ -5,6 +5,7 @@ export type RegisterData = {
        password: string;
        rePassword:string
 }
+//gua tunjukin blalala
 
 export type userData = {
        id_user: number;
