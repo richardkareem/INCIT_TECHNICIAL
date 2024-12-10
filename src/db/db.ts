@@ -77,7 +77,7 @@ const createTable = async(db:SQLiteDatabase) =>{
     const seedColorQuery5 = 'INSERT INTO color (color_name) VALUES ("#98F890")';
 
     const seedIconQuery = 'INSERT INTO icon (icon_name) VALUES ("icon_makan")';
-    const seedIconQuery2 = 'INSERT INTO icon (icon_name) VALUES ("icon_rumahn")';
+    const seedIconQuery2 = 'INSERT INTO icon (icon_name) VALUES ("icon_rumah")';
     const seedIconQuery3 = 'INSERT INTO icon (icon_name) VALUES ("icon_kendaraan")';
     const seedIconQuery4 = 'INSERT INTO icon (icon_name) VALUES ("icon_baju")';
     const seedIconQuery5 = 'INSERT INTO icon (icon_name) VALUES ("icon_peliharaan")';
